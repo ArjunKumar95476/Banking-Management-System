@@ -143,13 +143,3 @@ BEGIN
     bank_package.deposit_money(1001, 5000);
 END;
 /
-## 🔄 Fund Transfer
-
-```sql
-BEGIN
-    bank_package.transfer_funds(1001, 1002, 3000);
-END;
-/
-
-END;
-/
