@@ -1,1 +1,131 @@
+---------------------------------------------------
+    -- Deposit Money
+    ---------------------------------------------------
+
+    PROCEDURE deposit_money (
+        p_account_id NUMBER,
+        p_amount NUMBER
+    )
+    IS
+    BEGIN
+
+        UPDATE accounts SET balance = balance + p_amount WHERE account_id = p_account_id AND account_status = 'ACTIVE';
+        INSERT INTO transaction VALUES (transaction_seq.NEXTVAL,NULL,p_account_id,'DEPOSIT',p_amount,SYSDATE,'SUCCESS');
+        COMMIT;
+        DBMS_OUTPUT.PUT_LINE('Amount Deposited Successfully');
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            DBMS_OUTPUT.PUT_LINE(SQLERRM);
+    END deposit_money;
+
+
+
+
+
+
+
+
+    ---------------------------------------------------
+    -- Withdraw Money
+    ---------------------------------------------------
+
+    PROCEDURE withdraw_money (
+        p_account_id NUMBER,
+        p_amount NUMBER
+    )
+    IS
+        v_balance NUMBER;
+    BEGIN
+        SELECT balance INTO v_balance FROM accounts WHERE account_id = p_account_id AND account_status = 'ACTIVE';
+        IF p_amount > 20000 THEN
+            RAISE_APPLICATION_ERROR(-20002,'Daily ATM Withdrawal Limit Exceeded');
+        END IF;
+        IF v_balance < p_amount THEN
+            RAISE_APPLICATION_ERROR(-20003,'Insufficient Funds');
+        END IF;
+
+        UPDATE accounts SET balance = balance - p_amount WHERE account_id = p_account_id;
+
+        INSERT INTO transaction VALUES (transaction_seq.NEXTVAL,p_account_id,NULL,'WITHDRAW',p_amount,SYSDATE,'SUCCESS');
+        COMMIT;
+        DBMS_OUTPUT.PUT_LINE('Withdrawal Successful');
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            DBMS_OUTPUT.PUT_LINE(SQLERRM);
+    END withdraw_money;
+
+
+
+
+
+
+    ---------------------------------------------------
+    -- Fund Transfer
+    ---------------------------------------------------
+
+    PROCEDURE transfer_funds (
+        p_from_account NUMBER,
+        p_to_account NUMBER,
+        p_amount NUMBER
+    )
+    IS
+        v_balance NUMBER;
+    BEGIN
+
+        SELECT balance INTO v_balance FROM accounts WHERE account_id = p_from_account AND account_status = 'ACTIVE';
+
+        IF v_balance < p_amount THEN
+            RAISE_APPLICATION_ERROR(-20004,'Insufficient Balance For Transfer');
+        END IF;
+
+        UPDATE accounts SET balance = balance - p_amount WHERE account_id = p_from_account;
+
+        UPDATE accounts SET balance = balance + p_amount WHERE account_id = p_to_account;
+
+        INSERT INTO transaction
+        VALUES (transaction_seq.NEXTVAL,p_from_account,p_to_account,'TRANSFER',p_amount,SYSDATE,'SUCCESS');
+        COMMIT;
+        DBMS_OUTPUT.PUT_LINE('Fund Transfer Successful');
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            INSERT INTO transaction
+            VALUES (transaction_seq.NEXTVAL,p_from_account,p_to_account,'TRANSFER',p_amount,SYSDATE,'FAILED');
+            DBMS_OUTPUT.PUT_LINE(SQLERRM);
+    END transfer_funds;
+
+
+
+
+
+
+    ---------------------------------------------------
+    -- Transaction History Using Cursor
+    ---------------------------------------------------
+    PROCEDURE show_transaction_history (
+        p_account_id NUMBER
+    )
+    IS
+        CURSOR c_txn IS SELECT txn_id,txn_type,amount,txn_date,txn_status
+        FROM transaction 
+        WHERE from_account = p_account_id OR to_account = p_account_id 
+        ORDER BY txn_date DESC;
+        v_txn_id transaction.txn_id%TYPE;
+        v_type transaction.txn_type%TYPE;
+        v_amount transaction.amount%TYPE;
+        v_date transaction.txn_date%TYPE;
+        v_status transaction.txn_status%TYPE;
+    BEGIN
+        OPEN c_txn;
+        LOOP
+            FETCH c_txn INTO v_txn_id,v_type,v_amount,v_date,v_status;
+            EXIT WHEN c_txn%NOTFOUND;
+            DBMS_OUTPUT.PUT_LINE('Txn ID : ' || v_txn_id ||' | Type : ' || v_type ||' | Amount : ' || v_amount || ' | Status : ' || v_status);
+        END LOOP;
+        CLOSE c_txn;
+    END show_transaction_history;
 
