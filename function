@@ -1,1 +1,15 @@
+-----Function to Check Balance-----
+CREATE OR REPLACE FUNCTION get_balance (
+    p_account_id NUMBER
+)
+RETURN NUMBER
+IS
+    v_balance NUMBER;
+BEGIN
+    SELECT balance INTO v_balance FROM accounts WHERE account_id = p_account_id;
+RETURN v_balance;
 
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN 0;
+END;
