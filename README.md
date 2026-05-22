@@ -1,10 +1,10 @@
-# 🏦 Banking Management System
+# Banking Management System
 
 A complete **Banking Management System** developed using **Oracle SQL** and **PL/SQL** to manage banking operations such as account management, secure fund transfers, deposits, withdrawals, transaction tracking, and audit logging.
 
 ---
 
-# 🚀 Technologies Used
+# Technologies Used
 
 - Oracle SQL
 - PL/SQL
@@ -18,9 +18,9 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-# ✨ Key Features
+# Key Features
 
-## 🔹 Account Management
+## Account Management
 
 - Create and manage customer accounts
 - Account status validation (`ACTIVE / INACTIVE`)
@@ -28,7 +28,7 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-## 🔹 Secure Transaction Processing
+## Secure Transaction Processing
 
 - Deposit Money
 - Withdraw Money
@@ -37,7 +37,7 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-## 🔹 Advanced PL/SQL Features
+## Advanced PL/SQL Features
 
 - PL/SQL Packages for modular programming
 - Stored Procedures and Functions
@@ -47,7 +47,7 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-## 🔹 Banking Validations
+## Banking Validations
 
 - Negative balance prevention
 - Daily ATM withdrawal limit validation
@@ -56,7 +56,7 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-## 🔹 Performance Optimization
+## Performance Optimization
 
 - Indexed columns for faster query execution
 - Optimized SQL queries
@@ -64,7 +64,7 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-## 🔹 Audit & Monitoring
+## Audit & Monitoring
 
 - Automatic audit trail for balance changes
 - Transaction history tracking
@@ -72,9 +72,9 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-# 📂 Database Objects
+# Database Objects
 
-## 🗄️ Tables
+## Tables
 
 - Customers
 - Accounts
@@ -83,7 +83,7 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-## ⚙️ PL/SQL Objects
+## PL/SQL Objects
 
 - Procedures
 - Functions
@@ -95,7 +95,7 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-# 🔧 Modules Included
+# Modules Included
 
 | Module | Description |
 |--------|-------------|
@@ -109,7 +109,7 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-# 📈 Advanced Features
+# Advanced Features
 
 - Secure transaction handling using `COMMIT` and `ROLLBACK`
 - Daily ATM withdrawal limit validation
@@ -123,7 +123,7 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-# 💡 Learning Outcomes
+# Learning Outcomes
 
 - Real-world PL/SQL project development
 - Database transaction management
@@ -134,9 +134,9 @@ A complete **Banking Management System** developed using **Oracle SQL** and **PL
 
 ---
 
-# ▶️ Sample Operations
+# Sample Operations
 
-## 💰 Deposit Money
+## Deposit Money
 
 ```sql
 BEGIN
